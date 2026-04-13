@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useRef } from "react";
 import Marquee from "../components/Marquee";
+import Banner from "../assets/Banner1.png";
 
 export default function Home() {
   const scrollRef = useRef(null);
@@ -26,7 +27,7 @@ export default function Home() {
         <div className="relative w-full h-[64vh] max-h-[430px]">
           {/* BACKGROUND IMAGE */}
           <img
-            src="src\assets\Banner1.png "
+            src={shirt}
             alt="Banner"
             className="w-full h-full object-cover"
           />
