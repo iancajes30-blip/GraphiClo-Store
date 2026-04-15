@@ -4,7 +4,6 @@ import { categories } from "../data/categories";
 import { useState } from "react";
 
 export default function Sidebar({ isOpen, setIsOpen }) {
-  const [activeCategory, setActiveCategory] = useState(null);
   const [openSection, setOpenSection] = useState(null);
   const [activeTab, setActiveTab] = useState("men");
   return (
@@ -62,14 +61,16 @@ export default function Sidebar({ isOpen, setIsOpen }) {
             // 🔹 SIMPLE LINK
             if (item.type === "link") {
               return (
-                <p
+                <Link
                   key={index}
-                  className={`cursor-pointer ${
+                  to={`/shop?gender=${activeTab}&category=${item.category || ""}`}
+                  onClick={() => setIsOpen(false)}
+                  className={`flex justify-between cursor-pointer py-1 cursor-pointer ${
                     item.highlight ? "text-red-500" : ""
                   }`}
                 >
                   {item.label}
-                </p>
+                </Link>
               );
             }
 
@@ -78,7 +79,7 @@ export default function Sidebar({ isOpen, setIsOpen }) {
               return (
                 <div key={index}>
                   <div
-                    className="flex justify-between cursor-pointer py-2"
+                    className="flex justify-between cursor-pointer py-1"
                     onClick={() =>
                       setOpenSection(
                         openSection === item.label ? null : item.label,
@@ -90,9 +91,16 @@ export default function Sidebar({ isOpen, setIsOpen }) {
                   </div>
 
                   {openSection === item.label && (
-                    <div className="pl-4 text-sm space-y-1 pb-2 animate-fade">
+                    <div className="pl-4 text-mainSize space-y-1 pb-2 animate-fade">
                       {item.items.map((sub, i) => (
-                        <p key={i}>{sub.label}</p>
+                        <Link
+                          className="flex text-mainSize justify-between cursor-pointer py-1"
+                          key={i}
+                          to={`/shop?gender=${activeTab}&category=${sub.category}`}
+                          onClick={() => setIsOpen(false)}
+                        >
+                          {sub.label}
+                        </Link>
                       ))}
                     </div>
                   )}
@@ -104,46 +112,6 @@ export default function Sidebar({ isOpen, setIsOpen }) {
           })}
         </div>
       </div>
-
-      {/* OVERLAY 
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/40 z-40"
-          onClick={() => setIsOpen(false)}
-        />
-      )}
-*/}
-      {/* SIDEBAR 
-      <div
-        className={`fixed top-0 left-0 h-full w-64 bg-white z-50 transform transition-transform duration-500 ${
-          isOpen ? "translate-x-0" : "-translate-x-full"
-        }`}
-      >
-      */}
-      {/* CLOSE BUTTON 
-        <div className="flex justify-end p-4">
-          <button onClick={() => setIsOpen(false)}>
-            <FiX size={24} />
-          </button>
-        </div>
-*/}
-      {/* MENU ITEMS
-        <div className="flex flex-col gap-4 px-6">
-          <Link to="/" onClick={() => setIsOpen(false)}>
-            Home
-          </Link>
-          <Link to="/shop" onClick={() => setIsOpen(false)}>
-            Shop
-          </Link>
-          <Link to="/about" onClick={() => setIsOpen(false)}>
-            About
-          </Link>
-          <Link to="/orders" onClick={() => setIsOpen(false)}>
-            Orders
-          </Link>
-        </div>
-      </div>
-       */}
     </>
   );
 }

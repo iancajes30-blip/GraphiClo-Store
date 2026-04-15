@@ -12,7 +12,7 @@ export const categories = {
       label: "New Arrivals",
       path: "/shop",
       gender: "men",
-      category: "new",
+      category: null,
     },
 
     {

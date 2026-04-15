@@ -1,17 +1,24 @@
 import { useState, useEffect } from "react";
 import { products } from "../data/products";
 import ProductCard from "../components/ProductCard";
+import { useSearchParams } from "react-router-dom";
 
 export default function Shop() {
-  const [selectedCategory, setSelectedCategory] = useState("");
+  const [searchParams] = useSearchParams();
+  const selectedCategory = searchParams.get("category") || "";
+  const selectedGender = searchParams.get("gender") || "";
   const [sort, setSort] = useState("");
   const [priceRange, setPriceRange] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const productsPerPage = 8;
   const filteredProducts = products
     .filter((product) => {
-      let categoryMatch = selectedCategory
+      const categoryMatch = selectedCategory
         ? product.category === selectedCategory
+        : true;
+
+      const genderMatch = selectedGender
+        ? product.gender === selectedGender
         : true;
 
       let priceMatch = true;
@@ -24,7 +31,7 @@ export default function Shop() {
         priceMatch = product.price > 100;
       }
 
-      return categoryMatch && priceMatch;
+      return categoryMatch && genderMatch && priceMatch;
     })
     .sort((a, b) => {
       if (sort === "low") return a.price - b.price;
