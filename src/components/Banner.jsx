@@ -1,9 +1,11 @@
+import BannerHomePage from "../assets/Banner1.png";
+
 export default function Banner() {
   return (
     <div className="relative w-full h-[90vh]">
       {/* BACKGROUND IMAGE */}
       <img
-        src="src\assets\Banner1.png "
+        src={BannerHomePage}
         alt="Banner"
         className="w-full h-full object-cover"
       />

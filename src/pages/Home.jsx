@@ -49,7 +49,7 @@ export default function Home() {
         <div className="relative w-full h-[64vh] max-h-[430px]">
           {/* BACKGROUND IMAGE */}
           <img
-            src="src\assets\Banner1.png "
+            src={BannerHomePage}
             alt="Banner"
             className="w-full h-full object-cover"
           />
